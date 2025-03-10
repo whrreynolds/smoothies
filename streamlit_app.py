@@ -34,7 +34,7 @@ title = st.text_input("Name on Smoothie","")
 st.write("The name   order will be: ", title)
 
 #session = get_active_session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
 
@@ -53,7 +53,7 @@ if ingredients_list:
         ingredients_string += fruit_chosen + ' '        
         st.write(ingredients_string)
         st.subheader(fruit_chosen + 'Nut Infro')
-        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+search_on)
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/"+fruit_chosen)
         sf_sf = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
